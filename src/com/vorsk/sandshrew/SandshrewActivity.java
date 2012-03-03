@@ -29,13 +29,19 @@ import android.widget.TextView;
 public class SandshrewActivity extends Activity {
 	/** Called when the activity is first created. */
 	private final String TAG = "Main Activity";
-	private final String pleaseSwipe = "swipe your card!";
+	private final String pleaseSwipe = "swipe your card";
 	private final String ageTitle = "age:";
 	private final String tryAgain = "try again!";
+	private final String ohNo = "Oh no you dint.";
+	private final String expired = "ID HAS EXPIRED";
 	private TextView title;
 	private TextView textAge;
 	private TextView status;
 	private TextView ageMsg;
+	private TextView expire;
+	private Typeface fontPoke;
+	private Typeface fontGangsta;
+	private Typeface fontGent;
 	//private ImageView imageView;
 	//private ScrollView scroll;
 	private DecodeListener decoder;
@@ -51,17 +57,19 @@ public class SandshrewActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		Typeface font1 = Typeface.createFromAsset(getAssets(), "fonts/tutano_font.ttf");
-
+		fontPoke = Typeface.createFromAsset(getAssets(), "fonts/pokemonsolid.ttf");
+		fontGangsta = Typeface.createFromAsset(getAssets(), "fonts/grandstylus.ttf");
+		fontGent = Typeface.createFromAsset(getAssets(), "fonts/jfont.ttf");
 		
 		textAge = (TextView) findViewById(R.id.ageNumber);
 		status = (TextView) findViewById(R.id.statusMsg);
 		title = (TextView) findViewById(R.id.theTitle);
 		ageMsg = (TextView) findViewById(R.id.theAge);
+		expire = (TextView) findViewById(R.id.expireMsg);
 		
-		title.setTypeface(font1);
-		status.setTypeface(font1);
-		ageMsg.setTypeface(font1);
+		title.setTypeface(fontPoke);
+		status.setTypeface(fontPoke);
+		ageMsg.setTypeface(fontPoke);
 		ageMsg.setText(pleaseSwipe);
 	
 		this.updateCircle(CircleColor.CIRCLE_YELLOW);
@@ -98,8 +106,12 @@ public class SandshrewActivity extends Activity {
 			ageMsg.setText(ageTitle);
 			circleColor.setColor(Color.GREEN);
 			break;
-		case CIRCLE_RED :		
-			ageMsg.setText(tryAgain);
+		case CIRCLE_RED :
+			if(status.getText().equals("Valid Swipe!")){
+				ageMsg.setText(ohNo);
+			} else {
+				ageMsg.setText(tryAgain);
+			}
 			circleColor.setColor(Color.RED);
 			break;
 		}
@@ -153,6 +165,13 @@ public class SandshrewActivity extends Activity {
 		//scroll.scrollTo(0, text.getHeight());
 	}
 	
+	public void setExpire(){
+		expire.setText(expired);
+	}
+	
+	public void clearExpire(){
+		expire.setText("");
+	}
 	
 	//make the menu work
     @Override
@@ -167,15 +186,17 @@ public class SandshrewActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
     	switch (item.getItemId()) {
-		case R.id.menu_sound:
-			this.soundEnabled = !this.soundEnabled;
-			//refresh the networks (the easy way)
-			//this.status.setText("Ready!\n");
-			return true;
+//		case R.id.menu_sound:
+//			this.soundEnabled = !this.soundEnabled;
+//			//refresh the networks (the easy way)
+//			//this.status.setText("Ready!\n");
+//			return true;
 		case R.id.menu_age:
 			//age intent popup
-			this.setAgePopup();
-			
+			this.setAgePopup();			
+			return true;
+		case R.id.menu_theme:
+			setTheme();
 			return true;
 		default:
 			return false;
@@ -218,6 +239,57 @@ public class SandshrewActivity extends Activity {
       }
     }*/
     
+    private void setTheme(){
+    	final CharSequence[] items = {"Pokemon", "Gangster", "Gentleman"};
+
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setTitle("Pick a Theme");
+    	builder.setItems(items, new DialogInterface.OnClickListener() {
+    	    public void onClick(DialogInterface dialog, int item) {
+    	        switch(item) {
+    	        case 0:
+    	        	setPokemonTheme();
+    	        	break;
+    	        case 1:
+    	        	setGangsterTheme();
+    	        	break;
+    	        case 2:
+    	        	setGentlemanTheme();
+    	        }
+    	    }
+
+    	});
+    	AlertDialog alert = builder.create();
+    	alert.show();
+    }
+    
+    private void setGangsterTheme(){
+		title.setTypeface(fontGangsta);
+		title.setTextSize(65);
+		status.setTypeface(fontGangsta);
+		status.setTextSize(40);
+		ageMsg.setTypeface(fontGangsta);
+		ageMsg.setTextSize(40);
+	}
+
+	private void setPokemonTheme(){
+		title.setTypeface(fontPoke);
+		title.setTextSize(55);
+		status.setTypeface(fontPoke);
+		status.setTextSize(30);
+		ageMsg.setTypeface(fontPoke);
+		ageMsg.setTextSize(30);
+	}
+	
+	private void setGentlemanTheme(){
+		title.setTypeface(fontGent);
+		title.setTextSize(65);
+		status.setTypeface(fontGent);
+		status.setTextSize(40);
+		ageMsg.setTypeface(fontGent);
+		ageMsg.setTextSize(40);
+
+	}
     
     private void setAgePopup(){
     	AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -258,7 +330,7 @@ public class SandshrewActivity extends Activity {
         	Log.e("flashThread","thrad running");
         	//wait for a while
         	try {
-				Thread.sleep(2000L);
+				Thread.sleep(2300L);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
@@ -277,6 +349,8 @@ public class SandshrewActivity extends Activity {
         protected void onPostExecute(Integer i) {
         	Log.e("flashThread","yellow");
         	textAge.setText("");
+        	status.setText("Ready!");
+        	clearExpire();
         	updateCircle(CircleColor.CIRCLE_YELLOW);
         }
     }

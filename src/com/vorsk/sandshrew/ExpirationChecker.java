@@ -26,6 +26,9 @@ public class ExpirationChecker
 	
 	public static void setExpirationDate(String str)
 	{
+		if (str == null){
+			return; //this should be better...
+		}
 		StringBuilder parse = new StringBuilder();
 		//String strParse = str;
 		parse.append("20");
@@ -42,11 +45,11 @@ public class ExpirationChecker
 		
 		if(str.valueOf(4).equals(0))
 		{
-			month = Integer.parseInt(str.substring(5,6));
+			day = Integer.parseInt(str.substring(5,6));
 		}
 		else
 		{
-			month = Integer.parseInt(str.substring(4,6));
+			day = Integer.parseInt(str.substring(4,6));
 		}
 	}
 	
@@ -74,7 +77,7 @@ public class ExpirationChecker
 			}
 			//if person is not of age(in months)
 			else if((date.getMonth()+1 < month))
-		    {
+		    {				
 			    return false;
 		    }
 			//if its not greater than or less than, it must be equals, onto the days!

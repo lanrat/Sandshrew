@@ -27,6 +27,7 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 	//for parsing
 	//Parser parser;
 	AgeChecker ageChecker;
+	ExpirationChecker exprChecker;
 	
 	/** Ctor for the listener
 	 * @param callingActivity  the activity to update
@@ -190,23 +191,30 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 				//activity.updateCircle(SandshrewActivity.CircleColor.CIRCLE_RED);
 			}
 		}
+		if (s.length > 3){
+			if (s[3].equals("true")){
+				activity.setExpire();
+			}
+		}
 		
 	}
 	
 	//not that many things (yet...)
 	private void doAllThethings(String result){
 		Log.d(TAG, "result: "+result);
-		if (!Parser.validID(result)){
+		/*if (!Parser.validID(result)){
 			
 			publishProgress("Invalid ID","","false");
 			return;
-		}
+		}*/
 		String bday = Parser.getBirthday(result);
+		String expr = Parser.getExpirationDate(result);
+		exprChecker = new ExpirationChecker(expr);
 		if (bday == null) return;
 		Log.d(TAG,"bday: "+bday);
 		ageChecker.setBirthday(bday);
 		Log.d(TAG,"age: "+ageChecker.getAge());
-		publishProgress("Valid Swipe!",""+ageChecker.getAge(),""+ageChecker.isLegal());
+		publishProgress("Valid Swipe!",""+ageChecker.getAge(),""+ageChecker.isLegal(),""+exprChecker.isExpired());
 		if (ageChecker.isBirthday()){
 			Log.i(TAG,"its your birthday!");
 			publishProgress("Birthday");

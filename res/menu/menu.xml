@@ -2,10 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <item
     android:id="@+id/menu_age"
-	android:title="Change Required Age"
-	/>
+	android:title="Change Required Age" />
 <item
-    android:id="@+id/menu_sound"
-	android:title="Toggle Sounds"
+	android:id="@+id/menu_theme"
+	android:title="Change Theme"
 	/>
 </menu>

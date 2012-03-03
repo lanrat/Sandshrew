@@ -50,8 +50,8 @@ public class SandshrewActivity extends Activity {
 		
 		//Log.v(TAG,"Create ready!");
 
-		Sounds helper = new Sounds(this);
-		helper.playSexy();
+		//Sounds helper = new Sounds(this);
+		//helper.playSexy();
 
 	}
 	

@@ -28,6 +28,16 @@ public class Parser {
 				return null;
 		
 		return parse.toString();
-		
+	}
+	
+	static boolean validID(String str){
+		if (str.length() < 28 || str.length() > 40){
+			return false;
+		}else if (str.indexOf('=')!=16){
+			return false;
+		}else if (str.indexOf('=', 17) != -1){
+			return false;
+		}
+		return true;
 	}
 }

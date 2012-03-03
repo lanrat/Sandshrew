@@ -104,7 +104,7 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 					//process the PCM data and hope for a card
 					String result = decoder.processCard(pcmList);
 					if (decoder.isValid() && result != null){
-						publishProgress("status","Valid Swipe!");
+						//publishProgress("Valid Swipe!");
 						
 						//Log.v(TAG,"LRC PASS");
 
@@ -113,10 +113,9 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 						this.doAllThethings(result);
 						
 					}else{
-						publishProgress("status","Invalid Swipe");
+						publishProgress("Invalid Swipe","","false");
 						Log.v(TAG,"LRC Fail!!!!!");
 					}
-					
 					
 					//publishProgress("--------------------------------------------------------------");
 					audioRecord.startRecording();
@@ -170,6 +169,22 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 	 */
 	@Override
 	protected void onProgressUpdate(String... s) {
+		if (s.length >0){
+			activity.setStatus(s[0]);
+		}
+		if (s.length >1){
+			activity.setAge(s[1]);
+		}
+		if (s.length >2){
+			if (s[2].equals("true")){
+				activity.updateCircle(true);
+			}else{
+				activity.updateCircle(false);
+			}
+		}
+		
+		
+		/*
 		if (s.length < 2){ //too short
 			return;
 		}
@@ -177,20 +192,25 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 			activity.setStatus(s[1]);
 		}else{
 			activity.setAge(s[1]);
-			activity.updateCircle(ageChecker.isLegal());
 		}
+		activity.updateCircle(ageChecker.isLegal());*/
 		
 	}
 	
 	//not that many things (yet...)
 	private void doAllThethings(String result){
 		Log.d(TAG, "result: "+result);
+		if (!Parser.validID(result)){
+			
+			publishProgress("Invalid ID","","false");
+			return;
+		}
 		String bday = Parser.getBirthday(result);
 		if (bday == null) return;
 		Log.d(TAG,"bday: "+bday);
 		ageChecker.setBirthday(bday);
 		Log.d(TAG,"age: "+ageChecker.getAge());
-		publishProgress("age","" + ageChecker.getAge());
+		publishProgress("Valid Swipe!",""+ageChecker.getAge(),""+ageChecker.isLegal());
 	}
 	
 	/**

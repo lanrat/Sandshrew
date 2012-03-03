@@ -1,15 +1,18 @@
 package com.vorsk.sandshrew;
+
+
 import android.app.Activity;
 import android.content.Context;
 import android.media.SoundPool;
 import android.media.MediaPlayer;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.util.Log;
 
 
 public class Sounds 
 {
-	private Context context;
+	//private Context context;
 	MediaPlayer sexyTwentyOne;
 	AudioManager audioManager; //= (AudioManager)Context.getSystemService(Context.AUDIO_SERVICE);
 	public Sounds(Context inContext)
@@ -18,9 +21,12 @@ public class Sounds
 		audioManager = (AudioManager)inContext.getSystemService(Context.AUDIO_SERVICE);
 		//audioManager.setMode(AudioManager.MODE_IN_CALL);
 		//audioManager.setSpeakerphoneOn(true);
+		
+		Log.e("Sounds",""+audioManager.isWiredHeadsetOn());
+		
 		if(audioManager.isWiredHeadsetOn())
 		{
-			System.out.println(audioManager.isWiredHeadsetOn());
+			Log.e("Sounds",""+audioManager.isWiredHeadsetOn());
 		    audioManager.setWiredHeadsetOn(false);
 		    audioManager.setSpeakerphoneOn(true); 
 		    audioManager.setRouting(AudioManager.MODE_CURRENT, AudioManager.ROUTE_SPEAKER, AudioManager.ROUTE_ALL);  

@@ -13,7 +13,7 @@ public class AgeChecker
 	private int legalAge = 21; 
 	Date date = new Date();
 	
-	//no arguement constructor
+	//no argument constructor
 	public AgeChecker()
 	{
 		month = 0;
@@ -28,7 +28,7 @@ public class AgeChecker
 		setBirthday(birthdays);
 	}
 	
-	//change the birthdays so we dont have to make a new class each time...
+	//change the birthdays so we don't have to make a new class each time...
 	public void setBirthday(String birthdays)
 	{
 		year = Integer.parseInt(birthdays.substring(0,4));

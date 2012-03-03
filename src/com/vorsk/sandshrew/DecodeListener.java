@@ -107,8 +107,7 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 						publishProgress("status","Valid Swipe!");
 						
 						//Log.v(TAG,"LRC PASS");
-						
-						
+
 						//process data
 						this.doAllThethings(result);
 						
@@ -135,7 +134,7 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 	}
 	
 	
-	
+	//not that many things (yet...)
 	private void doAllThethings(String result){
 		ageChecker.setBirthday(Parser.getBirthday(result));	
 		publishProgress("age","" + ageChecker.getAge());
@@ -165,8 +164,6 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 		}
 		
 		return -1*(sum/bufferReadResult);
-		
-		
 	}
 
 

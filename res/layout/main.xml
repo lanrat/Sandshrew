@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@drawable/greenlight" >
+    android:background="#000000" >
 
     <TextView
         android:gravity="center_horizontal"
@@ -34,12 +34,10 @@
         android:textColor="#000000"
          />
    <ImageView
-       android:layout_gravity="center_horizontal|fill"
-       android:layout_width="150dp"
-       android:layout_height="164dp"
+       android:gravity="center_horizontal"
+       android:layout_width="fill_parent"
+       android:layout_height="150dp"
        android:contentDescription="@string/lightdesc"
-       android:maxHeight="50dp"
-       android:maxWidth="50dp"
        android:src="@drawable/greenlight" 
        android:id="@+id/lightImage" />  
    

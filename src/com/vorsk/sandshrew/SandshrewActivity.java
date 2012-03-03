@@ -40,7 +40,7 @@ public class SandshrewActivity extends Activity {
 		Canvas canvas = new Canvas(b);
 		Paint paint = new Paint();
 		paint.setColor(Color.RED);
-		canvas.drawCircle(0, 0, 10, paint);
+		canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, canvas.getHeight()/2, paint);
 		imageView.setImageBitmap(b);
 		
 		//Log.v(TAG,"Create ready!");

@@ -49,9 +49,8 @@ public class SandshrewActivity extends Activity {
 		paint.setColor(Color.RED);
 		canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, canvas.getHeight()/2, paint);
 		imageView.setImageBitmap(b);
-		
-		//Log.v(TAG,"Create ready!");
-
+		Sounds helper = new Sounds(this);
+		helper.playSexy();
 	}
 	
 	public void onResume(){

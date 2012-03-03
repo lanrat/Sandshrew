@@ -177,8 +177,9 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 			activity.setStatus(s[1]);
 		}else{
 			activity.setAge(s[1]);
+			activity.updateCircle(ageChecker.isLegal());
 		}
-		activity.updateCircle(ageChecker.isLegal());
+		
 	}
 	
 	//not that many things (yet...)

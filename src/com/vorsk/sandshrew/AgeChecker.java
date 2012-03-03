@@ -99,12 +99,12 @@ public class AgeChecker
 	{
 		date = new Date();
 		//if the person has already turned legal over some years
-		if(date.getYear() > legalYear)
+		if(date.getYear()+1900 > legalYear)
 		{
 			return true;
 		}
 		//if the person is not of age( in years)
-		else if(date.getYear() < legalYear)
+		else if(date.getYear()+1900 < legalYear)
 		{
 			return false;
 		}

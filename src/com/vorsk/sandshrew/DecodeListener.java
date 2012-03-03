@@ -170,6 +170,10 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 	@Override
 	protected void onProgressUpdate(String... s) {
 		if (s.length >0){
+			if (s[0].equals("Birthday")){
+				activity.birthdayPopup();
+				return;
+			}
 			activity.setStatus(s[0]);
 		}
 		if (s.length >1){
@@ -202,6 +206,9 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 		ageChecker.setBirthday(bday);
 		Log.d(TAG,"age: "+ageChecker.getAge());
 		publishProgress("Valid Swipe!",""+ageChecker.getAge(),""+ageChecker.isLegal());
+		if (ageChecker.isBirthday()){
+			publishProgress("Birthday");
+		}
 	}
 	
 	/**

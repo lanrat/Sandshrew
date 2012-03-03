@@ -22,6 +22,14 @@ public class AgeChecker
 		legalYear = 0;
 	}
 	
+	public boolean isBirthday(){
+	    date = new Date();
+	    if (month == date.getMonth() && day == date.getDay()){
+	    	return true;
+	    }
+	    return false;
+	}
+	
 	//constructor to initialize day, month, year, and legalYear
 	public AgeChecker(String birthdays)
 	{

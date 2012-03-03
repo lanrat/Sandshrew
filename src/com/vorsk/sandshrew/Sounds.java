@@ -22,9 +22,8 @@ public class Sounds
 		{
 			System.out.println(audioManager.isWiredHeadsetOn());
 		    audioManager.setWiredHeadsetOn(false);
-		    audioManager.setSpeakerphoneOn(true); 
-		    audioManager.setRouting(AudioManager.MODE_CURRENT, AudioManager.ROUTE_SPEAKER, AudioManager.ROUTE_ALL);  
-		    audioManager.setMode(AudioManager.MODE_CURRENT); 
+		    audioManager.setSpeakerphoneOn(true);   
+		    audioManager.setMode(AudioManager.MODE_IN_CALL); 
 		}
 	}
 	public void playSexy()

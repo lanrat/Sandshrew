@@ -58,6 +58,8 @@ public class AgeChecker
 	//private method to setLegalAge, if the default 21 is not desired
 	static public void setLegalAge(int i)
 	{
+		Log.w("ageChecker","old age: "+legalAge);
+		Log.w("ageChecker","new age: "+i);
 		legalAge = i;
 		calculateLegalYear(i);
 	}
@@ -70,6 +72,8 @@ public class AgeChecker
 	//other than 21
 	static private void calculateLegalYear(int legalAge)
 	{
+		Log.w("ageChecker","old year: "+legalYear);
+		Log.w("ageChecker","new year: "+legalYear);
 		legalYear = year + legalAge;
 	}
 	
@@ -93,9 +97,18 @@ public class AgeChecker
 	    }
 	    return result;
 	}
-
+	
+	
+	public boolean isLegal(){
+		if (this.getAge() >= AgeChecker.legalAge){
+			return true;
+		}
+		return false;
+	}
+	
+	
 	//Our main show! Checks if the person's birthday is of age
-	public boolean isLegal()
+	public boolean isLegalBorked()
 	{
 		date = new Date();
 		//if the person has already turned legal over some years

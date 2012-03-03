@@ -112,12 +112,12 @@ public class AgeChecker
 		else
 		{
 			//same logic as years, but in months
-			if((date.getMonth() > month))
+			if((date.getMonth()+1 > month))
 			{
 				return true;
 			}
 			//if person is not of age(in months)
-			else if((date.getMonth() < month))
+			else if((date.getMonth()+1 < month))
 		    {
 			    return false;
 		    }

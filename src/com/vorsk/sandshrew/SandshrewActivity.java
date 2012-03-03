@@ -1,6 +1,8 @@
 package com.vorsk.sandshrew;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
@@ -9,12 +11,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 //import android.widget.ScrollView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +31,9 @@ public class SandshrewActivity extends Activity {
 	//private ScrollView scroll;
 	private DecodeListener decoder;
 	private HeadsetStateReceiver receiver;
+	
+	private boolean soundEnabled = true; //enabled by default
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -103,9 +110,15 @@ public class SandshrewActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
     	switch (item.getItemId()) {
-		case R.id.menu_clear:
+		case R.id.menu_sound:
+			this.soundEnabled = !this.soundEnabled;
 			//refresh the networks (the easy way)
-			this.status.setText("Ready!\n");
+			//this.status.setText("Ready!\n");
+			return true;
+		case R.id.menu_age:
+			//age intent popup
+			this.setAgePopup();
+			
 			return true;
 		default:
 			return false;
@@ -145,6 +158,37 @@ public class SandshrewActivity extends Activity {
       {
     	  Log.e(TAG,"error with the pause thread");
       }
+    }
+    
+    
+    private void setAgePopup(){
+    	AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+    	alert.setTitle("Title");
+    	alert.setMessage("Message");
+
+    	// Set an EditText view to get user input 
+    	final EditText input = new EditText(this);
+    	alert.setView(input);
+
+    	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    	public void onClick(DialogInterface dialog, int whichButton) {
+    	  Editable value = input.getText();
+    	  Log.i(TAG,"Got: "+value);
+    	  // Do something with value!
+    	  
+    	  //TODO
+    	  }
+    	});
+
+    	alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+    	  public void onClick(DialogInterface dialog, int whichButton) {
+    	    // Canceled.
+    	  }
+    	});
+
+    	alert.show();
+    	// see http://androidsnippets.com/prompt-user-input-with-an-alertdialog
     }
 
 }

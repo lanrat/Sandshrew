@@ -9,6 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Editable;
@@ -26,13 +29,21 @@ import android.widget.TextView;
 public class SandshrewActivity extends Activity {
 	/** Called when the activity is first created. */
 	private final String TAG = "Main Activity";
-	private TextView text;
+	private final String pleaseSwipe = "swipe your card!";
+	private final String ageTitle = "age:";
+	private final String tryAgain = "try again!";
+	private TextView title;
+	private TextView textAge;
 	private TextView status;
+	private TextView ageMsg;
 	//private ImageView imageView;
 	//private ScrollView scroll;
 	private DecodeListener decoder;
 	private HeadsetStateReceiver receiver;
 	private Paint circleColor;
+	public static enum CircleColor {
+		CIRCLE_GREEN, CIRCLE_YELLOW, CIRCLE_RED
+	}
 	
 	private boolean soundEnabled = true; //enabled by default
 	
@@ -40,25 +51,31 @@ public class SandshrewActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		Typeface font1 = Typeface.createFromAsset(getAssets(), "fonts/tutano_font.ttf");
 
-		text = (TextView) findViewById(R.id.ageNumber);
+		
+		textAge = (TextView) findViewById(R.id.ageNumber);
 		status = (TextView) findViewById(R.id.statusMsg);
+		title = (TextView) findViewById(R.id.theTitle);
+		ageMsg = (TextView) findViewById(R.id.theAge);
 		
-
-		
-		this.updateCircle(false);
+		title.setTypeface(font1);
+		status.setTypeface(font1);
+		ageMsg.setTypeface(font1);
+		ageMsg.setText(pleaseSwipe);
+	
+		this.updateCircle(CircleColor.CIRCLE_YELLOW);
 		
 		//Log.v(TAG,"Create ready!");
-
-		//Sounds helper = new Sounds(this);
-		//helper.playSexy();
+//		Sounds helper = new Sounds(this);
+//		helper.playSexy();
 
 	}
 	
 	public void onResume(){
 		super.onResume();
 		//Log.v(TAG,"Resume");
-		this.sendStopBroadcast();
+		//this.sendStopBroadcast();
 		
 		//detect mag-reader-headset
 		IntentFilter receiverFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
@@ -67,21 +84,43 @@ public class SandshrewActivity extends Activity {
 		
 	}
 	
-	public void updateCircle(boolean valid){
+	public void updateCircle(CircleColor color){
 		Bitmap b = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(b);
 		circleColor = new Paint();
 		
-		if (valid){
+		switch(color) {
+		case CIRCLE_YELLOW :
+			ageMsg.setText(pleaseSwipe);
+			circleColor.setColor(Color.YELLOW);
+			break;
+		case CIRCLE_GREEN :
+			ageMsg.setText(ageTitle);
 			circleColor.setColor(Color.GREEN);
-		}else{
+			break;
+		case CIRCLE_RED :		
+			ageMsg.setText(tryAgain);
 			circleColor.setColor(Color.RED);
+			break;
 		}
 		ImageView imageView = (ImageView) findViewById(R.id.lightImage);
-		canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, canvas.getHeight()/2, circleColor);
+		canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, canvas.getHeight()/2 - 5, circleColor);
+		circleColor.setARGB(255, 0, 0, 0);
+		circleColor.setAntiAlias(true);
+		circleColor.setStyle(Style.STROKE);
+		circleColor.setStrokeWidth(5);
+		canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, canvas.getHeight()/2 - 5, circleColor);
 		imageView.setImageBitmap(b);
-		
 	}
+	
+	public void flashGreen(){
+		new FlashCircle().execute(CircleColor.CIRCLE_GREEN);
+	}
+	
+	public void flashRed(){
+		new FlashCircle().execute(CircleColor.CIRCLE_RED);
+	}
+	
 	
 	public void onPause(){
 		super.onPause();
@@ -103,7 +142,8 @@ public class SandshrewActivity extends Activity {
 	
 	public void setAge(String s){
 		//text.append(s+"\n");
-		text.setText(s);
+		ageMsg.setText(ageTitle);
+		textAge.setText(s);
 		//scroll.scrollTo(0, text.getHeight());
 	}
 	
@@ -151,6 +191,7 @@ public class SandshrewActivity extends Activity {
     /** Stops the background media player if it is playing
      * For the most part this code was *stolen* from the sleepTimer app :P
      * */
+    /*
     @SuppressWarnings("unused")
 	private void sendStopBroadcast()
     {
@@ -175,7 +216,7 @@ public class SandshrewActivity extends Activity {
       {
     	  Log.e(TAG,"error with the pause thread");
       }
-    }
+    }*/
     
     
     private void setAgePopup(){
@@ -208,6 +249,36 @@ public class SandshrewActivity extends Activity {
 
     	alert.show();
     	// see http://androidsnippets.com/prompt-user-input-with-an-alertdialog
+    }
+    
+    
+    private class FlashCircle extends AsyncTask<CircleColor, CircleColor, Integer> {
+        protected Integer doInBackground(CircleColor... i) {
+        	publishProgress(i);
+        	Log.e("flashThread","thrad running");
+        	//wait for a while
+        	try {
+				Thread.sleep(2000L);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				//whatever
+			}
+        	Log.e("flashThread","thrad done");
+        	
+            return new Integer(1);
+        }
+
+        protected void onProgressUpdate(CircleColor... i) {
+        	Log.e("flashThread","color time!");
+        	updateCircle(i[0]);;
+        }
+
+        protected void onPostExecute(Integer i) {
+        	Log.e("flashThread","yellow");
+        	textAge.setText("");
+        	updateCircle(CircleColor.CIRCLE_YELLOW);
+        }
     }
 
 }

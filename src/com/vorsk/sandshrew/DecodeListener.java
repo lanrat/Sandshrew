@@ -177,23 +177,14 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 		}
 		if (s.length >2){
 			if (s[2].equals("true")){
-				activity.updateCircle(true);
+				Log.e("flashThread","booooo!");
+				activity.flashGreen();
+				//activity.updateCircle(true);
 			}else{
-				activity.updateCircle(false);
+				activity.flashRed();
+				//activity.updateCircle(SandshrewActivity.CircleColor.CIRCLE_RED);
 			}
 		}
-		
-		
-		/*
-		if (s.length < 2){ //too short
-			return;
-		}
-		if (s[0].equals("status")){
-			activity.setStatus(s[1]);
-		}else{
-			activity.setAge(s[1]);
-		}
-		activity.updateCircle(ageChecker.isLegal());*/
 		
 	}
 	

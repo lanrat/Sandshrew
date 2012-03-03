@@ -26,6 +26,8 @@ public class HeadsetStateReceiver extends BroadcastReceiver {
 			activity.runThread();
 			//update status message
 			activity.setStatus("Ready!");
+			activity.updateCircle(SandshrewActivity.CircleColor.CIRCLE_YELLOW);
+
 			
 		}else if (state == 1 && mic == 0){
 			//headphones are plugged in, not a reader (or mic)
@@ -35,8 +37,8 @@ public class HeadsetStateReceiver extends BroadcastReceiver {
 			//stop the thread
 			activity.stopThread();
 			//update status message
-			activity.setStatus("Reader Unpluged");
-			activity.updateCircle(false);
+			activity.setStatus("Reader Unplugged");
+			activity.updateCircle(SandshrewActivity.CircleColor.CIRCLE_RED);
 		}
 	}
 

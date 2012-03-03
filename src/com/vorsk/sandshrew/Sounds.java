@@ -20,17 +20,11 @@ public class Sounds
 		sexyTwentyOne = MediaPlayer.create(inContext, R.raw.careless_whisper);
 		audioManager = (AudioManager)inContext.getSystemService(Context.AUDIO_SERVICE);
 		//audioManager.setMode(AudioManager.MODE_IN_CALL);
-		//audioManager.setSpeakerphoneOn(true);
+		audioManager.setSpeakerphoneOn(true);
+		audioManager.setMode(AudioManager.MODE_IN_CALL);
+		audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 		
 		Log.e("Sounds",""+audioManager.isWiredHeadsetOn());
-		
-		if(audioManager.isWiredHeadsetOn())
-		{
-			Log.e("Sounds",""+audioManager.isWiredHeadsetOn());
-		    audioManager.setWiredHeadsetOn(false);
-		    audioManager.setSpeakerphoneOn(true);   
-		    audioManager.setMode(AudioManager.MODE_IN_CALL); 
-		}
 	}
 	public void playSexy()
 	{
@@ -39,5 +33,9 @@ public class Sounds
 	public void stopSexy()
 	{
 		sexyTwentyOne.stop();
+	}
+	public void sexyKill()
+	{
+		sexyTwentyOne.release();
 	}
 }

@@ -24,6 +24,7 @@ import android.view.MenuItem;
 //import android.widget.ScrollView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SandshrewActivity extends Activity {
@@ -34,6 +35,7 @@ public class SandshrewActivity extends Activity {
 	private final String tryAgain = "try again!";
 	private final String ohNo = "Oh no you dint.";
 	private final String expired = "ID HAS EXPIRED";
+	private LinearLayout theView;
 	private TextView title;
 	private TextView textAge;
 	private TextView status;
@@ -66,6 +68,7 @@ public class SandshrewActivity extends Activity {
 		title = (TextView) findViewById(R.id.theTitle);
 		ageMsg = (TextView) findViewById(R.id.theAge);
 		expire = (TextView) findViewById(R.id.expireMsg);
+		theView = (LinearLayout) findViewById(R.id.view);
 		
 		title.setTypeface(fontPoke);
 		status.setTypeface(fontPoke);
@@ -264,15 +267,18 @@ public class SandshrewActivity extends Activity {
     }
     
     private void setGangsterTheme(){
+    	theView.setBackgroundResource(R.drawable.graffiti);
 		title.setTypeface(fontGangsta);
 		title.setTextSize(65);
 		status.setTypeface(fontGangsta);
 		status.setTextSize(40);
 		ageMsg.setTypeface(fontGangsta);
 		ageMsg.setTextSize(40);
+		
 	}
 
 	private void setPokemonTheme(){
+    	theView.setBackgroundResource(R.drawable.sandshrew2);
 		title.setTypeface(fontPoke);
 		title.setTextSize(55);
 		status.setTypeface(fontPoke);
@@ -282,6 +288,7 @@ public class SandshrewActivity extends Activity {
 	}
 	
 	private void setGentlemanTheme(){
+    	theView.setBackgroundResource(R.drawable.moustache);
 		title.setTypeface(fontGent);
 		title.setTextSize(65);
 		status.setTypeface(fontGent);

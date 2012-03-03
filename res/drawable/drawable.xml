@@ -4,5 +4,7 @@
     <item android:drawable="@drawable/bdaycupcake" />
     <item android:drawable="@drawable/iansface" />
     <item android:drawable="@drawable/sandshrew2" />
-    
+    <item android:drawable="@drawable/moustache" />
+    <item android:drawable="@drawable/graffiti" />
+
 </resource>

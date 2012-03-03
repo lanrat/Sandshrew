@@ -283,6 +283,7 @@ public class SandshrewActivity extends Activity {
 
     public void birthdayPopup(){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setIcon(R.drawable.bdaycupcake);
     	builder.setMessage("Happy Birthday! *<:~)")
     			.setTitle("Found a Birthday!")
     	       .setNeutralButton("OK", new DialogInterface.OnClickListener() {

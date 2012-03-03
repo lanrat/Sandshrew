@@ -25,7 +25,7 @@ public class Parser {
 		
 		subStr = str.substring(str.indexOf("="));
 		parse.append(subStr.substring(5, 9));
-		parse.append(subStr.substring(2, 4));
+		parse.append(subStr.substring(3, 5));
 		parse.append(subStr.substring(11, 13));
 		
 		return parse.toString();

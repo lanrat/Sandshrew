@@ -4,22 +4,13 @@ package com.vorsk.sandshrew;
  *  Parser class parses a given string
  */
 public class Parser {
-	private String str; // string to parse
 	
 	/**
-	 * Constructor that takes a string and stores it as the string to parse
-	 * @param str - string to parse
-	 */
-	public Parser(String str){ 
-		this.str = str;
-	}
-	
-	
-	/**
-	 * Returns the birthday by parsing the backing string of the Parser class
+	 * Returns the birthday by parsing a given string of the Parser class
+	 * @param str String to be parsed
 	 * @return Birthday represented as the string "YYYYMMDD"
 	 */
-	public String getBirthday(){
+	public static String getBirthday(String str){
 		StringBuilder parse = new StringBuilder();
 		String subStr;
 		

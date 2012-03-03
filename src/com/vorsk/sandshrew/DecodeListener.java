@@ -38,7 +38,7 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 		
 		//parser = new Parser();
 		ageChecker = new AgeChecker();
-		ageChecker.calculateLegalYear(22); //makes no sense? TODO
+		//ageChecker.calculateLegalYear(22); //makes no sense? TODO
 	}
 
 	/**
@@ -109,10 +109,11 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 						//Log.v(TAG,"LRC PASS");
 
 						//process data
+						//publishProgress("age",result);
 						this.doAllThethings(result);
 						
 					}else{
-						publishProgress("status","Invalid Swipe, outputting regardless");
+						publishProgress("status","Invalid Swipe");
 						Log.v(TAG,"LRC Fail!!!!!");
 					}
 					
@@ -134,11 +135,7 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 	}
 	
 	
-	//not that many things (yet...)
-	private void doAllThethings(String result){
-		ageChecker.setBirthday(Parser.getBirthday(result));	
-		publishProgress("age","" + ageChecker.getAge());
-	}
+
 	
 	
 	/** listens for a short while and finds what should be the sero offset for the class
@@ -181,6 +178,17 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 		}else{
 			activity.setAge(s[1]);
 		}
+		activity.updateCircle(ageChecker.isLegal());
+	}
+	
+	//not that many things (yet...)
+	private void doAllThethings(String result){
+		Log.d(TAG, "result: "+result);
+		String bday = Parser.getBirthday(result);
+		Log.d(TAG,"bday: "+bday);
+		ageChecker.setBirthday(bday);
+		Log.d(TAG,"age: "+ageChecker.getAge());
+		publishProgress("age","" + ageChecker.getAge());
 	}
 	
 	/**

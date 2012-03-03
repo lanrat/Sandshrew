@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Editable;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -27,10 +28,11 @@ public class SandshrewActivity extends Activity {
 	private final String TAG = "Main Activity";
 	private TextView text;
 	private TextView status;
-	private ImageView imageView;
+	//private ImageView imageView;
 	//private ScrollView scroll;
 	private DecodeListener decoder;
 	private HeadsetStateReceiver receiver;
+	private Paint circleColor;
 	
 	private boolean soundEnabled = true; //enabled by default
 	
@@ -41,14 +43,9 @@ public class SandshrewActivity extends Activity {
 
 		text = (TextView) findViewById(R.id.ageNumber);
 		status = (TextView) findViewById(R.id.statusMsg);
-		imageView = (ImageView) findViewById(R.id.lightImage);
 		
-		Bitmap b = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
-		Canvas canvas = new Canvas(b);
-		Paint paint = new Paint();
-		paint.setColor(Color.RED);
-		canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, canvas.getHeight()/2, paint);
-		imageView.setImageBitmap(b);
+		
+		this.updateCircle(false);
 		
 		//Log.v(TAG,"Create ready!");
 
@@ -63,6 +60,22 @@ public class SandshrewActivity extends Activity {
 		IntentFilter receiverFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
 		receiver = new HeadsetStateReceiver(this);
 		registerReceiver( receiver, receiverFilter );
+		
+	}
+	
+	public void updateCircle(boolean valid){
+		Bitmap b = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(b);
+		circleColor = new Paint();
+		
+		if (valid){
+			circleColor.setColor(Color.GREEN);
+		}else{
+			circleColor.setColor(Color.RED);
+		}
+		ImageView imageView = (ImageView) findViewById(R.id.lightImage);
+		canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, canvas.getHeight()/2, circleColor);
+		imageView.setImageBitmap(b);
 		
 	}
 	
@@ -164,11 +177,13 @@ public class SandshrewActivity extends Activity {
     private void setAgePopup(){
     	AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-    	alert.setTitle("Title");
-    	alert.setMessage("Message");
+    	alert.setTitle("Set Age");
+    	alert.setMessage("Minimum age required:");
 
     	// Set an EditText view to get user input 
     	final EditText input = new EditText(this);
+    	input.setInputType(InputType.TYPE_CLASS_NUMBER);
+    	input.setText(""+AgeChecker.getLeagalAge());
     	alert.setView(input);
 
     	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -176,8 +191,8 @@ public class SandshrewActivity extends Activity {
     	  Editable value = input.getText();
     	  Log.i(TAG,"Got: "+value);
     	  // Do something with value!
-    	  
-    	  //TODO
+    	  AgeChecker.setLegalAge(Integer.parseInt(value.toString()));
+
     	  }
     	});
 

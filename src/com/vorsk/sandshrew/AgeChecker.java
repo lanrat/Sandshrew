@@ -6,12 +6,12 @@ import android.util.Log;
 public class AgeChecker
 {	
 	//instance variables
-	private int month;
-	private int day;
-	private int year;
-	private int legalYear; //this is the important year of legalAge
-	private int legalAge = 21; 
-	Date date = new Date();
+	static private int month;
+	static private int day;
+	static private int year;
+	static private int legalYear; //this is the important year of legalAge
+	static private int legalAge = 21; 
+	Date date;
 	
 	//no argument constructor
 	public AgeChecker()
@@ -56,23 +56,27 @@ public class AgeChecker
 	}
 	
 	//private method to setLegalAge, if the default 21 is not desired
-	private void setLegalAge(int i)
+	static public void setLegalAge(int i)
 	{
 		legalAge = i;
+		calculateLegalYear(i);
+	}
+	
+	static public int getLeagalAge(){
+		return legalAge;
 	}
 	
 	//recalculate the legalYear if you want to set a different legal age
 	//other than 21
-	public void calculateLegalYear(int legalAge)
+	static private void calculateLegalYear(int legalAge)
 	{
-		setLegalAge(legalAge);
-		legalYear = year + this.legalAge;
+		legalYear = year + legalAge;
 	}
 	
 	//should calculate current age???
 	public int getAge() 
 	{
-	    Date date = new Date();
+	    date = new Date();
 	    int nowMonth = date.getMonth();
 	    int nowYear = date.getYear()+1900;
 	    int result = nowYear - year;
@@ -93,6 +97,7 @@ public class AgeChecker
 	//Our main show! Checks if the person's birthday is of age
 	public boolean isLegal()
 	{
+		date = new Date();
 		//if the person has already turned legal over some years
 		if(date.getYear() > legalYear)
 		{

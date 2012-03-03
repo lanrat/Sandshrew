@@ -186,6 +186,7 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 	private void doAllThethings(String result){
 		Log.d(TAG, "result: "+result);
 		String bday = Parser.getBirthday(result);
+		if (bday == null) return;
 		Log.d(TAG,"bday: "+bday);
 		ageChecker.setBirthday(bday);
 		Log.d(TAG,"age: "+ageChecker.getAge());

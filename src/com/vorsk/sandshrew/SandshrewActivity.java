@@ -44,11 +44,22 @@ public class SandshrewActivity extends Activity {
 		text = (TextView) findViewById(R.id.ageNumber);
 		status = (TextView) findViewById(R.id.statusMsg);
 		
+<<<<<<< HEAD
 		
 		this.updateCircle(false);
 		
 		//Log.v(TAG,"Create ready!");
 
+=======
+		Bitmap b = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(b);
+		Paint paint = new Paint();
+		paint.setColor(Color.RED);
+		canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, canvas.getHeight()/2, paint);
+		imageView.setImageBitmap(b);
+		Sounds helper = new Sounds(this);
+		helper.playSexy();
+>>>>>>> 7f416bf372b8ed7d1f5197e110f203b4209a286d
 	}
 	
 	public void onResume(){

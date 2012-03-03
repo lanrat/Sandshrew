@@ -24,6 +24,10 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 	//boolean value used to stop the recording if the activity is closed
 	private boolean isRecording = true;
 	
+	//for parsing
+	//Parser parser;
+	AgeChecker ageChecker;
+	
 	/** Ctor for the listener
 	 * @param callingActivity  the activity to update
 	 */
@@ -31,6 +35,10 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 		this.activity = callingActivity;
 		this.offset = findZero();
 		//Log.v(TAG,"new offset: "+offset);
+		
+		//parser = new Parser();
+		ageChecker = new AgeChecker();
+		ageChecker.calculateLegalYear(22); //makes no sense? TODO
 	}
 
 	/**
@@ -95,15 +103,22 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 					
 					//process the PCM data and hope for a card
 					String result = decoder.processCard(pcmList);
-					if (decoder.isValid()){
-						publishProgress("Valid Swipe!");
+					if (decoder.isValid() && result != null){
+						publishProgress("status","Valid Swipe!");
+						
 						//Log.v(TAG,"LRC PASS");
+						
+						
+						//process data
+						this.doAllThethings(result);
+						
 					}else{
-						publishProgress("Invalid Swipe, outputting regardless");
+						publishProgress("status","Invalid Swipe, outputting regardless");
 						Log.v(TAG,"LRC Fail!!!!!");
 					}
-					publishProgress(result);
-					publishProgress("--------------------------------------------------------------");
+					
+					
+					//publishProgress("--------------------------------------------------------------");
 					audioRecord.startRecording();
 				}
 				//reset the PCMlist for the next card
@@ -117,6 +132,13 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 		//due to the Void (note the capital V) return type
 		//the following line must be here.
 		return null;
+	}
+	
+	
+	
+	private void doAllThethings(String result){
+		ageChecker.setBirthday(Parser.getBirthday(result));	
+		publishProgress("age","" + ageChecker.getAge());
 	}
 	
 	
@@ -154,7 +176,14 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 	 */
 	@Override
 	protected void onProgressUpdate(String... s) {
-		activity.addToGUI(s[0]);
+		if (s.length < 2){ //too short
+			return;
+		}
+		if (s[0].equals("status")){
+			activity.setStatus(s[1]);
+		}else{
+			activity.setAge(s[1]);
+		}
 	}
 	
 	/**

@@ -10,7 +10,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ScrollView;
+//import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class SandshrewActivity extends Activity {
@@ -18,7 +18,7 @@ public class SandshrewActivity extends Activity {
 	private final String TAG = "Main Activity";
 	private TextView text;
 	private TextView status;
-	private ScrollView scroll;
+	//private ScrollView scroll;
 	private DecodeListener decoder;
 	private HeadsetStateReceiver receiver;
 	@Override
@@ -63,9 +63,16 @@ public class SandshrewActivity extends Activity {
 		}
 	}
 	
-	public void addToGUI(String s){
-		text.append(s+"\n");
-		scroll.scrollTo(0, text.getHeight());
+	public void setAge(String s){
+		//text.append(s+"\n");
+		text.setText(s);
+		//scroll.scrollTo(0, text.getHeight());
+	}
+	
+	public void setStatus(String s){
+		//text.append(s+"\n");
+		status.setText(s);
+		//scroll.scrollTo(0, text.getHeight());
 	}
 	
 	

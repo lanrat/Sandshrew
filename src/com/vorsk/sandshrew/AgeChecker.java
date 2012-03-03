@@ -66,6 +66,27 @@ public class AgeChecker
 		setLegalAge(legalAge);
 		legalYear = year + this.legalAge;
 	}
+	
+	//should calculate current age???
+	public int getAge() 
+	{
+	    Date date = new Date();
+	    int nowMonth = date.getMonth()+1;
+	    int nowYear = date.getYear()+1900;
+	    int result = nowYear - year;
+
+	    if (month > nowMonth) {
+	        result--;
+	    }
+	    else if (month == nowMonth) {
+	        int nowDay = date.getDate();
+
+	        if (day > nowDay) {
+	            result--;
+	        }
+	    }
+	    return result;
+	}
 
 	//Our main show! Checks if the person's birthday is of age
 	public boolean isLegal()

@@ -6,7 +6,7 @@ package com.vorsk.sandshrew;
 public class Parser {
 	
 	/**
-	 * Returns the birthday by parsing a given string of the Parser class
+	 * Returns the birthday by parsing a given string. The input string must be from an ID.
 	 * @param str String to be parsed
 	 * @return Birthday represented as the string "YYYYMMDD"
 	 */

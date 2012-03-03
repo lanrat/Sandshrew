@@ -3,6 +3,10 @@ package com.vorsk.sandshrew;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -11,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 //import android.widget.ScrollView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SandshrewActivity extends Activity {
@@ -18,6 +23,7 @@ public class SandshrewActivity extends Activity {
 	private final String TAG = "Main Activity";
 	private TextView text;
 	private TextView status;
+	private ImageView imageView;
 	//private ScrollView scroll;
 	private DecodeListener decoder;
 	private HeadsetStateReceiver receiver;
@@ -28,6 +34,14 @@ public class SandshrewActivity extends Activity {
 
 		text = (TextView) findViewById(R.id.ageNumber);
 		status = (TextView) findViewById(R.id.statusMsg);
+		imageView = (ImageView) findViewById(R.id.lightImage);
+		
+		Bitmap b = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(b);
+		Paint paint = new Paint();
+		paint.setColor(Color.RED);
+		canvas.drawCircle(0, 0, 10, paint);
+		imageView.setImageBitmap(b);
 		
 		//Log.v(TAG,"Create ready!");
 

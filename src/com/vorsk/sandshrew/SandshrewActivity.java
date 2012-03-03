@@ -209,5 +209,19 @@ public class SandshrewActivity extends Activity {
     	alert.show();
     	// see http://androidsnippets.com/prompt-user-input-with-an-alertdialog
     }
+    
+    
+    public void birthdayPopup(){
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setMessage("Happy Birthday! *<:~)")
+    			.setTitle("Found a Birthday!")
+    	       .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+    	           public void onClick(DialogInterface dialog, int id) {
+    	                dialog.cancel();
+    	           }
+    	       });
+    	AlertDialog alert = builder.create();
+    }
+    
 
 }

@@ -170,6 +170,10 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 	@Override
 	protected void onProgressUpdate(String... s) {
 		if (s.length >0){
+			if (s[0].equals("Birthday")){
+				activity.birthdayPopup();
+				return;
+			}
 			activity.setStatus(s[0]);
 		}
 		if (s.length >1){
@@ -182,18 +186,6 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 				activity.updateCircle(false);
 			}
 		}
-		
-		
-		/*
-		if (s.length < 2){ //too short
-			return;
-		}
-		if (s[0].equals("status")){
-			activity.setStatus(s[1]);
-		}else{
-			activity.setAge(s[1]);
-		}
-		activity.updateCircle(ageChecker.isLegal());*/
 		
 	}
 	
@@ -211,6 +203,9 @@ class DecodeListener extends AsyncTask<Integer, String, Void> {
 		ageChecker.setBirthday(bday);
 		Log.d(TAG,"age: "+ageChecker.getAge());
 		publishProgress("Valid Swipe!",""+ageChecker.getAge(),""+ageChecker.isLegal());
+		if (ageChecker.isBirthday()){
+			publishProgress("Birthday");
+		}
 	}
 	
 	/**

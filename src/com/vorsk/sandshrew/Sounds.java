@@ -16,13 +16,15 @@ public class Sounds
 	{
 		sexyTwentyOne = MediaPlayer.create(inContext, R.raw.careless_whisper);
 		audioManager = (AudioManager)inContext.getSystemService(Context.AUDIO_SERVICE);
-		if(audioManager.isWiredHeadsetOn())
+		audioManager.setMode(AudioManager.MODE_IN_CALL);
+		audioManager.setSpeakerphoneOn(true);
+		/*if(audioManager.isWiredHeadsetOn())
 		{
 		    audioManager.setWiredHeadsetOn(false);
 		    audioManager.setSpeakerphoneOn(true); 
 		    audioManager.setRouting(AudioManager.MODE_CURRENT, AudioManager.ROUTE_SPEAKER, AudioManager.ROUTE_ALL);  
 		    audioManager.setMode(AudioManager.MODE_CURRENT); 
-		}
+			} */
 	}
 	public void playSexy()
 	{

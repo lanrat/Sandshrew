@@ -24,7 +24,10 @@ public class AgeChecker
 	
 	public boolean isBirthday(){
 	    date = new Date();
-	    if (month == date.getMonth() && day == date.getDay()){
+	    
+	    Log.w("bday", date.getMonth()+1+"-"+ date.getDate());
+	    
+	    if (month == date.getMonth()+1 && day == date.getDate()){
 	    	return true;
 	    }
 	    return false;
@@ -89,7 +92,7 @@ public class AgeChecker
 	public int getAge() 
 	{
 	    date = new Date();
-	    int nowMonth = date.getMonth();
+	    int nowMonth = date.getMonth()+1;
 	    int nowYear = date.getYear()+1900;
 	    int result = nowYear - year;
 
@@ -146,7 +149,7 @@ public class AgeChecker
 		    else
 		    {
 		    	//if the person is not of age (in days)
-			    if(date.getDay() < day)
+			    if(date.getDate() < day)
 			    {
 				    return false;
 			    }

@@ -14,6 +14,7 @@ public class Parser {
 		StringBuilder parse = new StringBuilder();
 		String subStr;
 		
+		if (str == null) return null;
 		if (str.indexOf('=') == -1) return null;
 		
 		subStr = str.substring(str.indexOf('='));

@@ -30,6 +30,27 @@ public class Parser {
 		return parse.toString();
 	}
 	
+	public static String getExpirationDate(String str)
+	{
+		StringBuilder parse = new StringBuilder();
+		String subStr;
+		
+		if (str == null) return null;
+		if (str.indexOf('=') == -1) return null;
+		
+		subStr = str.substring(str.indexOf('='));
+		if (subStr.length()!= 14) return null;
+		parse.append(subStr.substring(1, 3));
+		parse.append(subStr.substring(3, 5));
+		parse.append(subStr.substring(11, 13));
+		
+		for (int i = 0; i < parse.length(); i++)
+			if ( !Character.isDigit(parse.charAt(i)))
+				return null;
+		
+		return parse.toString();
+	}
+	
 	static boolean validID(String str){
 		if (str.length() < 28 || str.length() > 40){
 			return false;

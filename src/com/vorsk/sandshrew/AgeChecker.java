@@ -146,7 +146,7 @@ public class AgeChecker
 		    else
 		    {
 		    	//if the person is not of age (in days)
-			    if(date.getDay() < day)
+			    if(date.getDate() < day)
 			    {
 				    return false;
 			    }

@@ -11,6 +11,15 @@ public class AgeChecker
 	private int legalAge = 21; 
 	Date date = new Date();
 	
+	//no arguement constructor
+	public AgeChecker()
+	{
+		month = 0;
+		year = 0;
+		day = 0;
+		legalYear = 0;
+	}
+	
 	//constructor to initialize day, month, year, and legalYear
 	public AgeChecker(String birthdays)
 	{

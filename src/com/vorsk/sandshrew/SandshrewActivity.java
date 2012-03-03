@@ -17,6 +17,7 @@ public class SandshrewActivity extends Activity {
 	/** Called when the activity is first created. */
 	private final String TAG = "Main Activity";
 	private TextView text;
+	private TextView status;
 	private ScrollView scroll;
 	private DecodeListener decoder;
 	private HeadsetStateReceiver receiver;
@@ -25,9 +26,8 @@ public class SandshrewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		text = (TextView) findViewById(R.id.text);
-		scroll = (ScrollView) findViewById(R.id.scroll);
-		scroll.setFadingEdgeLength(0);
+		text = (TextView) findViewById(R.id.ageNumber);
+		status = (TextView) findViewById(R.id.statusMsg);
 		
 		//Log.v(TAG,"Create ready!");
 
@@ -84,7 +84,7 @@ public class SandshrewActivity extends Activity {
     	switch (item.getItemId()) {
 		case R.id.menu_clear:
 			//refresh the networks (the easy way)
-			this.text.setText("Ready!\n");
+			this.status.setText("Ready!\n");
 			return true;
 		default:
 			return false;

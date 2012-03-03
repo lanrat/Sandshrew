@@ -2,11 +2,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#FFFFFFFF" >
 
     <TextView
+        android:gravity="center_horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello" />
+        android:text="@string/title" 
+        android:textSize="30dp"
+        android:typeface="sans"
+        android:padding="10dip"/>
+
+   <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/status" 
+        android:textSize="20dp"
+        android:typeface="sans"
+        android:padding="10dip"/>
+   
+   <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/statusMsg"
+        android:padding="10dip"
+         />
+   <ImageView
+       android:layout_gravity="center_horizontal|fill"
+       android:layout_width="150dp"
+       android:layout_height="164dp"
+       android:contentDescription="@string/lightdesc"
+       android:maxHeight="50dp"
+       android:maxWidth="50dp"
+       android:src="@drawable/greenlight" 
+       android:id="@+id/lightImage" />  
+   
+   <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/age" 
+        android:textSize="20dp"
+        android:typeface="sans"
+        android:padding="10dip"/>
+   
+     <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ageNumber"
+        android:padding="10dip"
+         />
+   
 
 </LinearLayout>

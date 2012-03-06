@@ -272,6 +272,7 @@ public class SandshrewActivity extends Activity {
 		title.setTextSize(65);
 		status.setTypeface(fontGangsta);
 		status.setTextSize(40);
+		ageMsg.setPadding(0, 0, 0, 0);
 		ageMsg.setTypeface(fontGangsta);
 		ageMsg.setTextSize(40);
 		
@@ -283,6 +284,7 @@ public class SandshrewActivity extends Activity {
 		title.setTextSize(55);
 		status.setTypeface(fontPoke);
 		status.setTextSize(30);
+		ageMsg.setPadding(0, 0, 0, 0);
 		ageMsg.setTypeface(fontPoke);
 		ageMsg.setTextSize(30);
 	}
@@ -293,6 +295,7 @@ public class SandshrewActivity extends Activity {
 		title.setTextSize(65);
 		status.setTypeface(fontGent);
 		status.setTextSize(40);
+		ageMsg.setPadding(0, 55, 0, 0);
 		ageMsg.setTypeface(fontGent);
 		ageMsg.setTextSize(40);
 

@@ -18,12 +18,12 @@ class MagDecoder{
 	private final String TAG = "Mag Decoder";
 	private static final short NOISE = 900;
 	private boolean goodRead = false;
-	
+
 	//TODO the following vars should be in a card type object, for track 1
 	private final static int binSize = 5;
 	private final static int charOffset = 48;
 	private final static char end = '?';
-	
+
 	private static final char badChar = '|';
 
 
@@ -56,7 +56,7 @@ class MagDecoder{
 
 		// convert the peaks to binary
 		CharLinkedList binaryList = peaksToBinary(peakList);
-		
+
 		//testing
 		//Log.d("magDecode?bin", binaryList.toString());
 
@@ -74,15 +74,15 @@ class MagDecoder{
 				Log.i(TAG, "reverse did not help");
 			}
 		}
-		
+
 		//fix returning null reads
 		if (str == null){
 			this.goodRead = false;
 		}
-		
+
 		return str;
 	}
-	
+
 	/**
 	 * Returns the validly of the processed string
 	 * @return the result
@@ -159,7 +159,7 @@ class MagDecoder{
 		return charArray;
 	}
 
-	
+
 	/**
 	 * Add the parity bit to the LRC
 	 * @param calcLRC the current LRC
@@ -175,12 +175,12 @@ class MagDecoder{
 		}
 		//set the last parity element
 		calcLRC[calcLRC.length - 1] = (count % 2 != 1);
-		//convert from boolean values to char 
+		//convert from boolean values to char
 		return boolArrayToChar(calcLRC);
 
 	}
 
-	
+
 	/**
 	 * Determine if the binary sequence has a valid parity bit
 	 * @param bin the binary sequence
@@ -197,7 +197,7 @@ class MagDecoder{
 		return (count % 2 == 1);
 	}
 
-	
+
 	/**
 	 * Determine the ASCII char represented by the binary
 	 * @param binary the binary sequence to decode
@@ -211,14 +211,14 @@ class MagDecoder{
 			this.goodRead = false;
 			return badChar;
 		}
-		
+
 		//update the LRC
 		for (int i = 0; i < binary.length; i++) {
 			if (binary[i] == '1') { //found a 1
 				lrc[i] = !lrc[i]; //flip the bit
 			}
 		}
-		
+
 		//our binary is backwards
 		binary = reverseArray(removelast(binary));
 		// Return the char from the parsed binary
@@ -245,7 +245,8 @@ class MagDecoder{
 	 */
 	private char[] reverseArray(char[] array) {
 		char temp;
-		for (int i = 0; i < array.length; i += 2) {
+		int half = array.length/2;
+		for (int i = 0; i < half; i++) {
 			temp = array[i];
 			array[i] = array[array.length-1-i];
 			array[array.length-1-i] = temp;
@@ -262,9 +263,9 @@ class MagDecoder{
 	private CharLinkedList peaksToBinary(LinkedList<Integer> peakList) {
 		//create the output variable
 		CharLinkedList binaryList = new CharLinkedList();
-		//Initialize the oneClock variable for this swipe 
+		//Initialize the oneClock variable for this swipe
 		oneClock clock = new oneClock((peakList.get(2) - peakList.get(1)) / 2); // (3rd - 2nd) / 2
-		
+
 		int lastPeakIdx = peakList.getFirst();
 		//variable to hold the current bit we are going to examine
 		char currentBit;
@@ -274,7 +275,7 @@ class MagDecoder{
 		Iterator<Integer> it = peakList.iterator();
 		while (it.hasNext()){
 			int currentPeakIdx = it.next();
-		
+
 			// ignoring the MAX_BITSTREAM_LEN (=1024), cuz I don't think I need it
 			//get the current bit
 			currentBit = peakDiffToBin(clock, currentPeakIdx - lastPeakIdx);
@@ -297,7 +298,7 @@ class MagDecoder{
 		return binaryList;
 	}
 
-	
+
 	/**
 	 * Determines if the difference between two peaks is a 1 or 0
 	 * @param diff the difference between the two peaks
@@ -355,7 +356,7 @@ class MagDecoder{
 				}
 			}
 			// transverse the linked list
-			currentPeak = currentPeak.next; 
+			currentPeak = currentPeak.next;
 		}
 		//done; return my list
 		return peakList;
@@ -372,7 +373,7 @@ class MagDecoder{
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Class instance variable used to store the oneClock
 	 * Has the ability to average the past few ones for greater accuracy
